@@ -2,6 +2,7 @@ import reactLogo from "./assets/react.svg";
 import React, { useState } from "react";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import { AppRoutes } from "./constant/AppRoutes";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,11 +22,22 @@ function App() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     // You can add further actions like API calls here
-  };
+
+    const response = await fetch(AppRoutes.signup, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    
+    console.log(response);
+  }
+
   return (
     <>
       <div>
@@ -113,7 +125,7 @@ function App() {
         </button>
       </form>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
